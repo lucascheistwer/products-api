@@ -1,31 +1,43 @@
 require 'bcrypt'
+require 'jwt'
+require_relative '../exceptions/auth_exception'
 
 class AuthInteractor
-  class AuthenticationError < StandardError; end
-
   USERS = {
     'admin' => BCrypt::Password.create('password')
   }.freeze
 
-  @authenticated_users = {}
+  SECRET_KEY = 'your_secret_key'
 
   class << self
-    attr_accessor :authenticated_users
-
     def login(username, password)
       unless USERS[username] && BCrypt::Password.new(USERS[username]) == password
         raise AuthenticationError, 'Invalid username or password'
       end
 
-      authenticated_users[username] = true
+      generate_token(username)
     end
 
-    def logout(username)
-      authenticated_users.delete(username)
+    def validate_token(token)
+      decoded_token = decode_token(token)
+      raise AuthenticationError, 'Token has expired' if Time.at(decoded_token['exp']) < Time.now
+
+      decoded_token['username']
     end
 
-    def authenticated?(username)
-      authenticated_users[username]
+    private
+
+    def generate_token(username)
+      exp = Time.now.to_i + 3600
+      payload = { username: username, exp: exp }
+      JWT.encode(payload, SECRET_KEY, 'HS256')
+    end
+
+    def decode_token(token)
+      decoded = JWT.decode(token, SECRET_KEY, true, { algorithm: 'HS256' })
+      decoded.first
+    rescue JWT::DecodeError
+      raise AuthenticationError, 'Invalid token'
     end
   end
 end
