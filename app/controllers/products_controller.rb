@@ -2,12 +2,9 @@ require 'sinatra/base'
 require 'json'
 require_relative '../interactors/products_interactor'
 require_relative '../interactors/auth_interactor'
+require_relative 'base_controller'
 
-class ProductsController < Sinatra::Base
-  before do
-    content_type :json
-  end
-
+class ProductsController < BaseController
   post '/products' do
     request_body = JSON.parse(request.body.read)
     product_name = request_body['name']

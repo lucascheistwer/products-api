@@ -2,12 +2,9 @@ require 'sinatra/base'
 require 'json'
 require_relative '../interactors/auth_interactor'
 require_relative '../exceptions/auth_exception'
+require_relative 'base_controller'
 
-class AuthController < Sinatra::Base
-  before do
-    content_type :json
-  end
-
+class AuthController < BaseController
   post '/auth/login' do
     request_body = JSON.parse(request.body.read)
     username = request_body['username']
