@@ -1,7 +1,6 @@
 require 'sinatra/base'
 require 'json'
 require_relative '../interactors/auth_interactor'
-require_relative '../helpers/auth_utils'
 require_relative '../exceptions/auth_exception'
 
 class AuthController < Sinatra::Base
@@ -9,7 +8,7 @@ class AuthController < Sinatra::Base
     content_type :json
   end
 
-  post '/login' do
+  post '/auth/login' do
     request_body = JSON.parse(request.body.read)
     username = request_body['username']
     password = request_body['password']
@@ -23,15 +22,11 @@ class AuthController < Sinatra::Base
     end
   end
 
-  get '/status' do
-    token = AuthUtils.get_token(request)
-
-    begin
-      username = AuthInteractor.validate_token(token)
-      { status: 200, message: "User #{username} is authenticated" }.to_json
-    rescue AuthenticationError => e
-      status 401
-      { status: 401, error: e.message }.to_json
-    end
+  get '/auth/status' do
+    username = AuthInteractor.validate_request_token(request)
+    { status: 200, message: "User #{username} is authenticated" }.to_json
+  rescue AuthenticationError => e
+    status 401
+    { status: 401, error: e.message }.to_json
   end
 end
