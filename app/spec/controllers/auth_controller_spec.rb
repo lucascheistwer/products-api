@@ -1,5 +1,6 @@
 require 'rspec'
 require 'rack/test'
+require 'dotenv/load'
 require_relative '../../controllers/auth_controller'
 require_relative '../../interactors/auth_interactor'
 

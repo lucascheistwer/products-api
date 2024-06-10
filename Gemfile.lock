@@ -109,7 +109,7 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt
-  dotenv (~> 2.7)
+  dotenv
   json
   jwt
   rack-test
