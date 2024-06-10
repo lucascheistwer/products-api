@@ -2,6 +2,7 @@
 source 'https://rubygems.org'
 
 gem 'bcrypt'
+gem 'dotenv'
 gem 'json'
 gem 'jwt'
 gem 'rack-test'

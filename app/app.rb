@@ -1,3 +1,4 @@
+require 'dotenv/load'
 require 'sinatra/base'
 require_relative 'controllers/auth_controller'
 require_relative 'controllers/products_controller'
