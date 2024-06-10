@@ -1,0 +1,2 @@
+### TCP
+TCP (Transmission Control Protocol) es un estándar de comunicaciones que se utiliza para transmitir datos a través de redes. Establece una conexión, asegura la entrega ordenada y sin errores de paquetes, y gestiona la correción de errores mediante números de secuencia, y por esta razón es que ofrece un sistema de entrega muy fiable, garantizando la integridad de los datos enviados.
