@@ -22,6 +22,9 @@ bundle install
 ```
 ruby app/app.rb
 ```
+User credentials for authentication at `POST /auth/login` are:
+- username: 'admin'
+- password: 'password'
 
 ### Run Tests
 ```
