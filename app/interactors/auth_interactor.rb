@@ -7,7 +7,7 @@ class AuthInteractor
     'admin' => BCrypt::Password.create('password')
   }.freeze
 
-  SECRET_KEY = 'your_secret_key'
+  SECRET_KEY = '7d4f0b2e3c4a2b7f9e8d6c3b4e1a2f3d7c8e9a6f5b4c3a2d1e9c8b7a6f4d3b2c'
 
   class << self
     def login(username, password)
