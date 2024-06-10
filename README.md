@@ -17,6 +17,12 @@ cd products-api
 bundle install
 ```
 
+### Create .env file
+```
+cp .env.example .env
+```
+And then add a secure value to the JWT_SECRET_KEY variable in the .env
+
 ### Start the API
 
 ```
