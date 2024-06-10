@@ -23,4 +23,7 @@ bundle install
 ruby app/app.rb
 ```
 
-
+### Run Tests
+```
+bundle exec rspec app
+```
