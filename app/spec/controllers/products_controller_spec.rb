@@ -3,6 +3,7 @@ require 'rack/test'
 require 'dotenv/load'
 require_relative '../../controllers/products_controller'
 require_relative '../../interactors/auth_interactor'
+require_relative '../../interactors/products_interactor'
 
 RSpec.describe ProductsController do
   include Rack::Test::Methods
@@ -21,6 +22,9 @@ RSpec.describe ProductsController do
         expect(last_response.status).to eq(201)
         response_body = JSON.parse(last_response.body)
         expect(response_body['message']).to eq('Product being created asynchronously')
+        sleep 6
+        products = ProductsInteractor.get_products
+        expect(products.any? { |p| p.name == 'Product1' }).to be_truthy
       end
     end
 
